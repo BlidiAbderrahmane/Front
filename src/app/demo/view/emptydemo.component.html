@@ -1,0 +1,27 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>ALL PROJECTS</h4>
+            <table styleClass="p-datatable-gridlines">
+                <tr>
+                    <th><div class="flex justify-content-between align-items-center">
+                        Projet
+                    </div></th>
+                </tr>
+                <div *ngFor="let a of lstclasses?.apirestprojects ;let i = index ;">
+                    <div *ngFor="let b of lstclasses?.apirestprojects[i]?.apirestclasses;let j = index ;  ">
+                        <div *ngFor="let c of lstclasses?.apirestprojects[i].apirestclasses[j]?.apirestmethods ; let k = index ; ">
+                            <tr>
+                                <td style="min-width: 12rem;">{{a.projet}}</td>
+                                <td style="min-width: 12rem;">{{b.controller}}</td>
+                                <td style="min-width: 12rem;">{{c.nomMethode}}</td>
+                                <td style="min-width: 12rem;">{{c.apirestresources[0].idAPIRestressource}}</td>
+                            </tr>
+                        </div>
+                    </div>
+                </div>
+
+            </table>
+        </div>
+    </div>
+</div>
