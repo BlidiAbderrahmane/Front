@@ -57,9 +57,9 @@
 			<div *ngIf="f.empty">
 				<p>dd</p>
 			</div>
-			
+
 			<div class="test">
-				
+
 				<p-button label="RECHERCHER" icon="pi pi-search" styleClass="mr-2 mb-2" (onClick)="onSubmit(0)"
 					[loading]="loading[0]"></p-button>
 			</div>
@@ -69,16 +69,18 @@
 		<p-toolbar styleClass="mb-4">
 			<ng-template pTemplate="left">
 				<div class="my-2">
-						</div>
+				</div>
 			</ng-template>
 
 			<ng-template pTemplate="right">
-				<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+				<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+					(click)="exportPdf()"></button>
 			</ng-template>
 		</p-toolbar>
 
-		<p-table [value]="methods" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
-			responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+		<p-table id="htmlData" [value]="methods" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true"
+			[(first)]="first" responsiveLayout="scroll"
+			currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 			[rowsPerPageOptions]="[10,25,50]">
 
 			<ng-template pTemplate="header">
@@ -129,6 +131,11 @@
 						</div>
 					</th>
 				</tr>
+				<tr *ngIf="falseFields">
+					<td colspan="7">
+						No API REST found.
+					</td>
+				</tr>
 			</ng-template>
 			<ng-template pTemplate="body" let-method>
 				<tr>
@@ -148,13 +155,23 @@
 						{{method.verbHTTP}}
 					</td>
 					<td style="min-width: 9rem;">
-						{{method.controller}}
+						<p-scrollPanel [style]="{width: '200px', height: '50px'}">
+							<p>{{method.controller}}</p>
+							<p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="50"
+								icon="pi pi-arrow-up">
+							</p-scrollTop>
+						</p-scrollPanel>
 					</td>
 					<td style="min-width: 6rem;">
 						{{method.nomMethode}}
 					</td>
 					<td style="min-width: 12rem;">
-						{{method.description}}
+						<p-scrollPanel [style]="{width: '150px', height: '100px'}">
+							<p>{{method.description}}</p>
+							<p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100"
+								icon="pi pi-arrow-up"></p-scrollTop>
+						</p-scrollPanel>
+
 					</td>
 					<td>
 						<button (click)="editProduct(method)" pbutton="" pripple="" type="button" icon="pi pi-search"
@@ -169,12 +186,8 @@
 				</tr>
 			</ng-template>
 
-			
-			<ng-template pTemplate="emptymessage">
-				<tr>
-					<td colspan="7">No API REST found.</td>
-				</tr>
-			</ng-template>
+
+
 			<!--
 			<ng-template pTemplate="loadingbody">
 				<tr>
@@ -286,5 +299,19 @@
 		</ng-template>
 
 	</p-dialog>
+	<p-dialog [(visible)]="fieldsEmpty" [modal]="true" [style]="{width:'450px'}">
+		<div class="flex align-items-center justify-content-center">
+			<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+			<span>All the fields are empty </span>
+		</div>
+		<ng-template pTemplate="footer">
+			<button (click)="fieldsEmpty = false" pbutton="" pripple="" type="button" label="Primary"
+				class="p-element p-ripple p-button-text mr-2 mb-2 p-button p-component" ng-reflect-label="Primary"><span
+					class="p-button-label">OK</span><span class="p-ink"
+					style="height: 88px; width: 88px; top: -23.3636px; left: 10px;"></span>
+			</button>
+		</ng-template>
+	</p-dialog>
+
 
 </div>

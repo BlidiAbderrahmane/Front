@@ -10,7 +10,7 @@
         </a>
 
         <ul class="layout-topbar-main-menu">
-            <li>
+            <!--<li>
                 <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact: true}"
                    routerLinkActive="topbar-active-menuitem-routerlink">Sales
                     <span class="active-bottom"></span>
@@ -25,16 +25,17 @@
                 <a [routerLink]="['/blocks']" routerLinkActive="topbar-active-menuitem-routerlink">Prime Blocks
                     <span class="active-bottom"></span>
                 </a>
-            </li>
+            </li>-->
             <li>
                 <a [routerLink]="['/REST']" routerLinkActive="topbar-active-menuitem-routerlink">API Rest
                     <span class="active-bottom"></span>
                 </a>
             </li>
-            <li app-topmenu *ngFor="let item of menu; let i = index;" [item]="item" [index]="i" [root]="true" class="layout-topbar-menu" (click)="appMain.onTopbarMenuClick($event)"></li>
-        </ul>
+            <!--<li app-topmenu *ngFor="let item of menu; let i = index;" [item]="item" [index]="i" [root]="true" class="layout-topbar-menu" (click)="appMain.onTopbarMenuClick($event)"></li>
+            -->
+            </ul>
     </div>
-    <div class="layout-topbar-right">
+   <!-- <div class="layout-topbar-right">
         <ul class="layout-topbar-actions">
             <li #searchItem class="search-item" [ngClass]="{'active-topmenuitem': appMain.search}">
                 <a href="#" tabindex="0" (click)="appMain.onTopbarItemClick($event,searchItem); searchFocus($event)">
@@ -92,5 +93,5 @@
                 </ul>
             </li>
         </ul>
-    </div>
+    </div>-->
 </div>
