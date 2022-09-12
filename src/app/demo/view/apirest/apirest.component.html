@@ -73,7 +73,7 @@
 			</ng-template>
 
 			<ng-template pTemplate="right">
-				<button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+				<button pButton pRipple label="EXPORTER" icon="pi pi-upload" class="p-button-help"
 					(click)="exportPdf()"></button>
 			</ng-template>
 		</p-toolbar>
@@ -155,6 +155,7 @@
 						{{method.verbHTTP}}
 					</td>
 					<td style="min-width: 9rem;">
+						
 						<p-scrollPanel [style]="{width: '200px', height: '50px'}">
 							<p>{{method.controller}}</p>
 							<p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="50"
@@ -174,7 +175,7 @@
 
 					</td>
 					<td>
-						<button (click)="editProduct(method)" pbutton="" pripple="" type="button" icon="pi pi-search"
+						<button (click)="detailsAPI(method)" pbutton="" pripple="" type="button" icon="pi pi-search"
 							class="p-element p-ripple p-button-rounded p-button-info p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
 							ng-reflect-icon="pi pi-search"><span class="p-button-icon pi pi-search"
 								aria-hidden="true"></span><span aria-hidden="true"
@@ -200,13 +201,15 @@
 
 
 	</div>
-	<p-dialog [(visible)]="productDialog" [style]="{width: '800px'}" header="Details" [modal]="true" class="p-fluid">
+	<p-dialog [(visible)]="productDialog" [style]="{width: '800px'}" header="Détails" [modal]="true" class="p-fluid">
 		<ng-template pTemplate="content">
 			<div class="field">
-				<h4>{{detail.api }}{{detail.ressource}}</h4>
+		
+				<h5 >{{detail.api }}{{detail.ressource}}<br>Controller : {{APIcontroller }}<br>Method : {{APImethod}}</h5>
 			</div>
+
 			<div class="field">
-				<h5>Parametre(s) Http</h5>
+				<h5>Paramètre(s) Http</h5>
 				<div class="formgrid grid">
 					<div class="field-radiobutton col-4">
 						<p id="nom2" name="category" value="Nom"></p>
@@ -232,14 +235,14 @@
 					</div>
 					<div class="field-radiobutton col-4">
 						<p id="io" name="category" value="I/O"></p>
-						<label for="io">{{d.typeIO}}</label>
+						<label for="io">{{d.ng}}</label>
 					</div>
 				</div>
 				<p-divider></p-divider>
 			</div>
 			<br>
 			<div class="field">
-				<h5>Parametre(s) Progress</h5>
+				<h5>Paramètre(s) Progress</h5>
 				<div class="formgrid grid">
 					<div class="field-radiobutton col-4">
 						<p id="nom3" name="category" value="Nom"></p>

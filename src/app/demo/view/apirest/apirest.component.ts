@@ -61,6 +61,8 @@ export class APIRestComponent implements OnInit {
   emptyf = false;
   fieldsEmpty: boolean = false;
   falseFields: boolean = false;
+  APIcontroller = '';
+  APImethod = '';
   load(index) {
     this.loading[index] = true;
     setTimeout(() => this.loading[index] = false, 250);
@@ -76,27 +78,33 @@ export class APIRestComponent implements OnInit {
     ];
   }
   exportPdf() {
+   const doc = new jsPDF('landscape') ;
 
-   const doc = new jsPDF() ;
-
-   const columns = [['Projet', 'Method', 'Api','Ressource' ,"Verb"]];
+   const columns = [['Projet','version','class', 'Method', 'Api','Ressource' ,"Verb"]];
    const data = [
    ];
    this.methods.map(function(x){
-    data.push([x.projet , x.nomMethode , x.api , x.ressource, x.verbHTTP]);
+    data.push([x.projet ,x.version,x.controller, x.nomMethode , x.api , x.ressource, x.verbHTTP]);
   });
     autoTable(doc, {
          head: columns,
          body: data,
+         styles: {
+          fontSize: 8,
+          font: 'helvetica',
+          cellPadding: 2,
+          minCellHeight: 2,
+      },
          didDrawPage: (dataArg) => { 
           doc.text('REST API', dataArg.settings.margin.left, 10);
          }
     });
+  
     doc.save("REST_API.pdf");
   }
 
   async onSubmit(index) {
-
+this.falseFields = false;
 
     this.load(index);
     this._APIRestService.searchAPIProject(this.form)
@@ -143,12 +151,14 @@ export class APIRestComponent implements OnInit {
       );
 
   }
-  async editProduct(s: RESTmethod) {
+  async detailsAPI(s: RESTmethod) {
     let sd: SearchDetail = {
       idClass: s.idAPIRestclass,
       idMethod: s.idAPIRestmethod,
       idProjet: s.idAPIRestproject
     };
+    this.APIcontroller= s.controller;
+    this.APImethod = s.nomMethode;
     console.log(s)
     this._APIRestService.searchdetail(sd)
       .subscribe(data => {
@@ -158,25 +168,6 @@ export class APIRestComponent implements OnInit {
       });
 
 
-  }
-  next() {
-    this.first = this.first + this.rows;
-  }
-
-  prev() {
-    this.first = this.first - this.rows;
-  }
-
-  reset() {
-    this.first = 0;
-  }
-
-  isLastPage(): boolean {
-    return this.methods ? this.first === (this.methods.length - this.rows) : true;
-  }
-
-  isFirstPage(): boolean {
-    return this.methods ? this.first === 0 : true;
   }
 
 }
